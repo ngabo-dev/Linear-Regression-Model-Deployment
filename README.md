@@ -8,10 +8,15 @@ Dataset Description
 The dataset used in this project contains information about students and their academic performance. The dataset includes various features such as attendance, exam scores, participation, and demographic data.
 
 Dataset Fields
+
 Student_ID: Unique identifier for each student
+
 First_Name: Student's first name
+
 Last_Name: Student's last name
+
 Email: Student's email address
+
 Gender: Gender of the student (Male/Female)
 Age: Age of the student
 Department: Department the student belongs to
