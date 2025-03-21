@@ -55,7 +55,7 @@ Stress_Level (1-10): Student's stress level on a scale of 1 to 10
 
 Sleep_Hours_per_Night: Average hours of sleep per night
 
-# Source of Dataset
+# Source of Dataset 
 
-This dataset was sourced from Kaggle (or any other source you used).
+This dataset was sourced from Kaggle.
 
