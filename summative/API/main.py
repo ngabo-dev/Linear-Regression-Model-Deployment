@@ -1,12 +1,17 @@
-from fastapi import FastAPI
-from pydantic import BaseModel, Field, conint, confloat
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
 import uvicorn
 import numpy as np
 import joblib
+from pathlib import Path
 from fastapi.middleware.cors import CORSMiddleware
 
-# Load trained model (ensure the path is correct)
-model = joblib.load("../linear_regression/best_model.pkl")
+# Load trained model safely
+model_path = Path(__file__).parent / "../linear_regression/best_model.pkl"
+try:
+    model = joblib.load(model_path)
+except Exception as e:
+    raise RuntimeError(f"Failed to load model: {e}")
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -15,10 +20,10 @@ app = FastAPI(
     version="1.0"
 )
 
-# Enable CORS (adjust allowed origins if necessary)
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins for development; specify domains in production
+    allow_origins=["*"], # Change to specific domains in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,20 +59,24 @@ class StudentPerformanceInput(BaseModel):
 # Define API endpoint for predictions
 @app.post("/predict")
 def predict(data: StudentPerformanceInput):
-    input_data = np.array([[ 
-        data.Attendance, 
-        data.Midterm_Score, 
-        data.Assignments_Avg, 
-        data.Quizzes_Avg, 
-        data.Participation_Score, 
-        data.Projects_Score, 
-        data.Study_Hours_per_Week, 
-        data.Stress_Level, 
-        data.Sleep_Hours_per_Night
-    ]])
-    
-    prediction = model.predict(input_data)
-    return {"predicted_final_score": float(prediction[0])}
+    try:
+        input_data = np.array([[ 
+            data.Attendance, 
+            data.Midterm_Score, 
+            data.Assignments_Avg, 
+            data.Quizzes_Avg, 
+            data.Participation_Score, 
+            data.Projects_Score, 
+            data.Study_Hours_per_Week, 
+            data.Stress_Level, 
+            data.Sleep_Hours_per_Night
+        ]], dtype=np.float32)
+
+        prediction = model.predict(input_data)
+        return {"predicted_final_score": float(prediction[0])}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {e}")
 
 # Run the API
 if __name__ == "__main__":
