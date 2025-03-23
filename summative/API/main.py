@@ -1,12 +1,21 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, confloat
+from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import numpy as np
 import joblib
+import os
+import logging
 
-# Load the trained model
-model = joblib.load("../linear_regression/best_decision_tree_model.pkl")
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+
+# Load the trained model with a verified path
+model_path = os.path.abspath("../linear_regression/best_decision_tree_model.pkl")
+if not os.path.exists(model_path):
+    raise FileNotFoundError(f"Model file not found at {model_path}")
+
+model = joblib.load(model_path)
 
 # Initialize FastAPI app
 app = FastAPI(title="Linear Regression Prediction API")
@@ -20,39 +29,46 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Define request body with constraints
+# Define request body with corrected float types
 class PredictionRequest(BaseModel):
-    attendance: float  # Attendance percentage (0-100)
-    midterm_score: float  # Midterm score (0-100)
-    final_score: float  # Final score (0-100)
-    assignments_avg: float  # Assignments average (0-100)
-    quizzes_avg: float  # Quizzes average (0-100)
-    participation_score: float  # Participation score (0-10)
-    projects_score: float  # Projects score (0-100)
-    total_score: float  # Total score (0-100)
-    study_hours_per_week: float  # Study hours per week (0-100)
-    stress_level: float  # Stress level (1-10)
-    sleep_hours_per_night: float  # Sleep hours per night (0-24)
-
+    attendance: float
+    midterm_score: float
+    assignments_avg: float
+    quizzes_avg: float
+    participation_score: float
+    projects_score: float
+    study_hours_per_week: float
+    stress_level: float
+    sleep_hours_per_night: float
+    final_score: float
+    total_score: float
 
 @app.get("/")
 def read_root():
     return {"message": "API is running"}
 
-
 @app.post("/predict")
 def predict(data: PredictionRequest):
     try:
-        # Convert request data to NumPy array
-        input_data = np.array([[
+        # Convert input data to NumPy array and reshape
+        input_data = np.array([
             data.attendance, data.midterm_score, data.final_score,
             data.assignments_avg, data.quizzes_avg, data.participation_score,
             data.projects_score, data.total_score, data.study_hours_per_week,
             data.stress_level, data.sleep_hours_per_night
-        ]])
+        ]).reshape(1, -1)
+
+        # Logging for debugging
+        logging.info(f"Received input data: {input_data}")
+
+        # Make prediction
         prediction = model.predict(input_data)
+
+        logging.info(f"Prediction result: {prediction.tolist()}")
+
         return {"prediction": prediction.tolist()}
     except Exception as e:
+        logging.error(f"Prediction error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":

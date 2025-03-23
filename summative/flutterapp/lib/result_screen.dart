@@ -8,26 +8,41 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Prediction Result")),
+      appBar: AppBar(
+        title: const Text(
+          "Prediction Result",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.indigo[800],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               "Prediction Result",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               prediction,
-              style: TextStyle(fontSize: 20, color: Colors.blue),
+              style: const TextStyle(fontSize: 20, color: Colors.teal),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
-              child: Text("Go to Home"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal[600],
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+              child: const Text(
+                "Go to Home",
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ],
         ),
