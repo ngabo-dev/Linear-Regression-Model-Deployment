@@ -15,6 +15,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
 
   TextEditingController attendanceController = TextEditingController();
   TextEditingController midtermScoreController = TextEditingController();
+  TextEditingController finalScoreController = TextEditingController();
   TextEditingController assignmentsAvgController = TextEditingController();
   TextEditingController quizzesAvgController = TextEditingController();
   TextEditingController participationScoreController = TextEditingController();
@@ -27,15 +28,16 @@ class _PredictionScreenState extends State<PredictionScreen> {
     final url = 'http://0.0.0.0:8000/predict'; // Replace with actual API URL
 
     Map<String, dynamic> requestBody = {
-      'attendance': double.parse(attendanceController.text),
-      'midterm_score': int.parse(midtermScoreController.text),
-      'assignments_avg': int.parse(assignmentsAvgController.text),
-      'quizzes_avg': int.parse(quizzesAvgController.text),
-      'participation_score': int.parse(participationScoreController.text),
-      'projects_score': int.parse(projectsScoreController.text),
-      'study_hours': int.parse(studyHoursController.text),
-      'stress_level': int.parse(stressLevelController.text),
-      'sleep_hours': double.parse(sleepHoursController.text),
+      'Attendance (%)': double.parse(attendanceController.text),
+      'Midterm_Score': double.parse(midtermScoreController.text),
+      'Final_Score': double.parse(finalScoreController.text),
+      'Assignments_Avg': double.parse(assignmentsAvgController.text),
+      'Quizzes_Avg': double.parse(quizzesAvgController.text),
+      'Participation_Score': double.parse(participationScoreController.text),
+      'Projects_Score': double.parse(projectsScoreController.text),
+      'Study_Hours_per_Week': double.parse(studyHoursController.text),
+      'Stress_Level (1-10)': double.parse(stressLevelController.text),
+      'Sleep_Hours_per_Night': double.parse(sleepHoursController.text),
     };
 
     try {
@@ -75,51 +77,16 @@ class _PredictionScreenState extends State<PredictionScreen> {
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              TextFormField(
-                controller: attendanceController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Attendance (%)'),
-              ),
-              TextFormField(
-                controller: midtermScoreController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Midterm Score'),
-              ),
-              TextFormField(
-                controller: assignmentsAvgController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Assignments Avg'),
-              ),
-              TextFormField(
-                controller: quizzesAvgController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Quizzes Avg'),
-              ),
-              TextFormField(
-                controller: participationScoreController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Participation Score'),
-              ),
-              TextFormField(
-                controller: projectsScoreController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Projects Score'),
-              ),
-              TextFormField(
-                controller: studyHoursController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Study Hours per Week'),
-              ),
-              TextFormField(
-                controller: stressLevelController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Stress Level'),
-              ),
-              TextFormField(
-                controller: sleepHoursController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Sleep Hours per Night'),
-              ),
+              textField(attendanceController, 'Attendance (%)'),
+              textField(midtermScoreController, 'Midterm Score'),
+              textField(finalScoreController, 'Final Score'),
+              textField(assignmentsAvgController, 'Assignments Avg'),
+              textField(quizzesAvgController, 'Quizzes Avg'),
+              textField(participationScoreController, 'Participation Score'),
+              textField(projectsScoreController, 'Projects Score'),
+              textField(studyHoursController, 'Study Hours per Week'),
+              textField(stressLevelController, 'Stress Level (1-10)'),
+              textField(sleepHoursController, 'Sleep Hours per Night'),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: makePrediction,
@@ -129,6 +96,14 @@ class _PredictionScreenState extends State<PredictionScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget textField(TextEditingController controller, String label) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(labelText: label),
     );
   }
 }

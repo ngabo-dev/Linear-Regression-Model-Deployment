@@ -34,6 +34,12 @@ class PredictionRequest(BaseModel):
     stress_level: float  # Stress level (1-10)
     sleep_hours_per_night: float  # Sleep hours per night (0-24)
 
+
+@app.get("/")
+def read_root():
+    return {"message": "API is running"}
+
+
 @app.post("/predict")
 def predict(data: PredictionRequest):
     try:
