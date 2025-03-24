@@ -11,7 +11,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # Load the trained model with a verified path
-model_path = os.path.abspath("../linear_regression/best_model.pkl")
+model_path = os.path.abspath("../linear_regression/Linear_Regression_model.pkl")
 if not os.path.exists(model_path):
     raise FileNotFoundError(f"Model file not found at {model_path}")
 
