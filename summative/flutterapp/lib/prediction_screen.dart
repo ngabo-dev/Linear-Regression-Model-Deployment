@@ -24,7 +24,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
   final TextEditingController sleepHoursController = TextEditingController();
 
   Future<void> makePrediction() async {
-    const String url = 'https://linear-regression-model-1-ocmt.onrender.com/predict';
+    const String url = 'http://127.0.0.1:8000/predict';
 
     if (!_formKey.currentState!.validate()) {
       return;
@@ -42,7 +42,6 @@ class _PredictionScreenState extends State<PredictionScreen> {
       double studyHours = double.parse(studyHoursController.text);
       double stressLevel = double.parse(stressLevelController.text);
       double sleepHours = double.parse(sleepHoursController.text);
-
 
       Map<String, dynamic> requestBody = {
         'attendance': attendance,
@@ -62,9 +61,13 @@ class _PredictionScreenState extends State<PredictionScreen> {
         body: json.encode(requestBody),
       );
 
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+
       if (response.statusCode == 200) {
         List<dynamic> predictionList = json.decode(response.body)['prediction'];
         String prediction = predictionList.isNotEmpty ? predictionList[0].toString() : "No prediction available";
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -72,11 +75,19 @@ class _PredictionScreenState extends State<PredictionScreen> {
           ),
         );
       } else {
+        // Decode error message from FastAPI
+        Map<String, dynamic> errorResponse = json.decode(response.body);
+        String errorMessage = errorResponse.containsKey("detail") ? errorResponse["detail"] : "Unknown error occurred";
+
+        print("Server error: $errorMessage");
+
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Error: Unable to get prediction")),
+          SnackBar(content: Text("Error: $errorMessage")),
         );
       }
     } catch (e) {
+      print("Exception occurred: $e");
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error: $e")),
       );
