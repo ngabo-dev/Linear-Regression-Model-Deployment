@@ -17,15 +17,15 @@ POST
 # Request Body:
 ```json
 {
-  "attendance": 85.0,
-  "midterm_score": 78.0,
-  "assignments_avg": 88.0,
-  "quizzes_avg": 75.0,
-  "participation_score": 92.0,
-  "projects_score": 85.0,
-  "study_hours_per_week": 10.0,
-  "stress_level": 6.0,
-  "sleep_hours_per_night": 7.0
+  "attendance": 52.29,
+  "midterm_score": 55.03,
+  "assignments_avg": 84.22,
+  "quizzes_avg": 74.06,
+  "participation_score": 3.99,
+  "projects_score": 85.9,
+  "study_hours_per_week": 6.2,
+  "stress_level": 5,
+  "sleep_hours_per_night": 4.7
 }   
 ```
 
