@@ -1,61 +1,165 @@
-# Linear-Regression-Model-Deployment
+## Student Performance Prediction API
 
-# Student Performance Prediction: Linear Regression Model & Deployment
-Mission
-The goal of this project is to predict student performance based on various factors such as their attendance, study hours, and participation. This model aims to help educational institutions identify students who may need additional support to improve their academic performance.
 
-Dataset Description
-The dataset used in this project contains information about students and their academic performance. The dataset includes various features such as attendance, exam scores, participation, and demographic data.
+# Overview
 
-Dataset Fields
+This API predicts the final performance score of students based on various input parameters like attendance, midterm score, assignment averages, stress level, and more. The API uses a trained machine learning model to generate predictions.
 
-Student_ID: Unique identifier for each student
+The API is publicly available and can be accessed via the endpoint provided below. The application also includes Swagger UI for testing and interacting with the API.
 
-First_Name: Student's first name
+# API Endpoint
+# URL:
+https://linear-regression-model-1-ocmt.onrender.com
 
-Last_Name: Student's last name
+# Method:
+POST
 
-Email: Student's email address
+# Request Body:
+```json
+{
+  "attendance": 85.0,
+  "midterm_score": 78.0,
+  "assignments_avg": 88.0,
+  "quizzes_avg": 75.0,
+  "participation_score": 92.0,
+  "projects_score": 85.0,
+  "study_hours_per_week": 10.0,
+  "stress_level": 6.0,
+  "sleep_hours_per_night": 7.0
+}   
+```
 
-Gender: Gender of the student (Male/Female)
+# Response:
 
-Age: Age of the student
+```json
+{
+  "predicted_final_score": 87.45
+}
+```
 
-Department: Department the student belongs to
+# Swagger UI for API Testing:
+To interact with the API and test the predictions, visit the Swagger UI.
 
-Attendance (%): Attendance percentage of the student
+# How to Run the API Locally
+# Prerequisites
 
-Midterm_Score: Score obtained in the midterm exams
+* Python 3.7+
 
-Final_Score: Score obtained in the final exams
+* virtualenv
 
-Assignments_Avg: Average score from assignments
+* pip
 
-Quizzes_Avg: Average score from quizzes
+# Steps:
 
-Participation_Score: Score based on student participation
+1. Clone the Repository:
+```bash
+git clone https://github.com/your-username/student-performance-prediction.git
+cd student-performance-prediction
+```
 
-Projects_Score: Score obtained from projects
+2. Create a Virtual Environment:
 
-Total_Score: Total score, which is the target variable for prediction
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows, use venv\Scripts\activate
+```
 
-Grade: Final grade of the student
+3. Install Dependencies:
 
-Study_Hours_per_Week: Number of study hours per week
+```bash
+pip install -r requirements.txt
+```
+4. Run the Application:
 
-Extracurricular_Activities: Participation in extracurricular activities (Yes/No)
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
 
-Internet_Access_at_Home: Whether the student has internet access at home (Yes/No)
+5. Access the API:
 
-Parent_Education_Level: Highest education level of the student's parents
+* Open [this link](https://linear-regression-model-1-ocmt.onrender.com/docs) to access the Swagger UI and test the API.
 
-Family_Income_Level: Family income level
 
-Stress_Level (1-10): Student's stress level on a scale of 1 to 10
+# YouTube Demo
+Here is a 2-minute demo showing how the API works and how to use it:
+[Watch the Demo](https://www.youtube.com/watch?v=9WM-k11zHiw)
 
-Sleep_Hours_per_Night: Average hours of sleep per night
+# How to Run the Mobile App
+# Prerequisites:
 
-# Source of Dataset 
+## Running and Debugging the FastAPI Application in VSCode
 
-This dataset was sourced from Kaggle.
+This guide will walk you through the steps to run and debug your FastAPI application directly within VSCode.
 
+**Prerequisites:**
+
+* VSCode installed.
+* Python installed.
+* Virtual environment (`venv`) created (if not, create one using `python -m venv venv`).
+* Dependencies listed in `requirements.txt`.
+
+**Steps:**
+
+1.  **Open the project in VSCode:**
+    * Open VSCode.
+    * Go to `File > Open Folder...` and select your project directory.
+
+2.  **Open the integrated terminal:**
+    * In VSCode, go to `View > Terminal` (or press `Ctrl + ~` or `Cmd + ~` on macOS).
+
+3.  **Navigate to the project directory (if needed):**
+    * Use the `cd` command to navigate to the root of your project if you're not already there.
+
+4.  **Activate the virtual environment:**
+    * **Windows:**
+        ```bash
+        .\venv\Scripts\activate
+        ```
+    * **macOS/Linux:**
+        ```bash
+        source venv/bin/activate
+        ```
+
+5.  **Install the dependencies:**
+    * Once the virtual environment is activated, install the dependencies by running:
+        ```bash
+        pip install -r requirements.txt
+        ```
+
+6.  **Start the FastAPI application:**
+    * You can now run your FastAPI app directly from the VSCode terminal.
+    * Make sure your virtual environment is activated (you should see `(venv)` in your terminal prompt).
+    * Run the application using uvicorn:
+        ```bash
+        uvicorn main:app --reload
+        ```
+        * The `--reload` flag will auto-reload the server whenever you make changes to the code.
+    * This should start the FastAPI server, and you should see output like:
+        ```text
+        INFO:     Uvicorn running on [http://127.0.0.1:8000](http://127.0.0.1:8000) (Press CTRL+C to quit)
+        ```
+
+7.  **Access the application:**
+    * Open your browser and go to `http://127.0.0.1:8000` to check the FastAPI app.
+    * To access the Swagger UI for testing API endpoints, go to:
+        ```text
+        [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+        ```
+
+**Debugging with VSCode:**
+
+1.  **Set up debugging:**
+    * In the Run and Debug view of VSCode (the bug icon on the left sidebar), click on "create a launch.json file".
+    * Select "Python" and then choose "FastAPI" from the list of configurations (or choose a "Python" configuration and adjust the settings).
+
+2.  **Add breakpoints:**
+    * You can add breakpoints in your Python code by clicking next to the line numbers in the editor. This will pause execution at those points during debugging.
+
+3.  **Start debugging:**
+    * Press the green play button in the Run and Debug view to start debugging the application.
+
+By following these steps, you'll be able to run and debug your FastAPI application directly within VSCode.
+
+
+# License
+This project is licensed under the MIT License - see the LICENSE file for details.
