@@ -40,8 +40,6 @@ class PredictionRequest(BaseModel):
     study_hours_per_week: float
     stress_level: float
     sleep_hours_per_night: float
-    final_score: float
-    total_score: float
 
 @app.get("/")
 def read_root():
@@ -52,9 +50,9 @@ def predict(data: PredictionRequest):
     try:
         # Convert input data to NumPy array and reshape
         input_data = np.array([
-            data.attendance, data.midterm_score, data.final_score,
-            data.assignments_avg, data.quizzes_avg, data.participation_score,
-            data.projects_score, data.total_score, data.study_hours_per_week,
+            data.attendance, data.midterm_score,data.assignments_avg, 
+            data.quizzes_avg, data.participation_score,
+            data.projects_score, data.study_hours_per_week,
             data.stress_level, data.sleep_hours_per_night
         ]).reshape(1, -1)
 

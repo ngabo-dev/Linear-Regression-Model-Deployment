@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'result_screen.dart';
 
 class PredictionScreen extends StatefulWidget {
-  const PredictionScreen({Key? key}) : super(key: key);
+  const PredictionScreen({super.key});
 
   @override
   _PredictionScreenState createState() => _PredictionScreenState();
@@ -15,7 +15,6 @@ class _PredictionScreenState extends State<PredictionScreen> {
 
   final TextEditingController attendanceController = TextEditingController();
   final TextEditingController midtermScoreController = TextEditingController();
-  final TextEditingController finalScoreController = TextEditingController();
   final TextEditingController assignmentsAvgController = TextEditingController();
   final TextEditingController quizzesAvgController = TextEditingController();
   final TextEditingController participationScoreController = TextEditingController();
@@ -36,7 +35,6 @@ class _PredictionScreenState extends State<PredictionScreen> {
     try {
       double attendance = double.parse(attendanceController.text);
       double midtermScore = double.parse(midtermScoreController.text);
-      double finalScore = double.parse(finalScoreController.text);
       double assignmentsAvg = double.parse(assignmentsAvgController.text);
       double quizzesAvg = double.parse(quizzesAvgController.text);
       double participationScore = double.parse(participationScoreController.text);
@@ -45,9 +43,6 @@ class _PredictionScreenState extends State<PredictionScreen> {
       double stressLevel = double.parse(stressLevelController.text);
       double sleepHours = double.parse(sleepHoursController.text);
 
-      double totalScore = (attendance + midtermScore + assignmentsAvg + quizzesAvg +
-              participationScore + projectsScore + studyHours + stressLevel + sleepHours) /
-          9;
 
       Map<String, dynamic> requestBody = {
         'attendance': attendance,
@@ -59,8 +54,6 @@ class _PredictionScreenState extends State<PredictionScreen> {
         'study_hours_per_week': studyHours,
         'stress_level': stressLevel,
         'sleep_hours_per_night': sleepHours,
-        'final_score': finalScore,
-        'total_score': totalScore,
       };
 
       final response = await http.post(
@@ -115,7 +108,6 @@ class _PredictionScreenState extends State<PredictionScreen> {
             children: <Widget>[
               _buildTextField(attendanceController, 'Attendance (%)'),
               _buildTextField(midtermScoreController, 'Midterm Score'),
-              _buildTextField(finalScoreController, 'Final Score'),
               _buildTextField(assignmentsAvgController, 'Assignments Avg'),
               _buildTextField(quizzesAvgController, 'Quizzes Avg'),
               _buildTextField(participationScoreController, 'Participation Score'),
