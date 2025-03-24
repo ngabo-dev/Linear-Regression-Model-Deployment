@@ -134,7 +134,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
-                child: const Text('Predict', style: TextStyle(fontSize: 18)),
+                child: const Text('Predict', style: TextStyle(fontSize: 18, color: Colors.white)),
               ),
             ],
           ),

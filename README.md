@@ -82,7 +82,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 # YouTube Demo
 Here is a 2-minute demo showing how the API works and how to use it:
-[Watch the Demo](https://www.youtube.com/watch?v=9WM-k11zHiw)
+[Watch the Demo](https://youtu.be/aOfQyWy3fxE)
 
 # How to Run the Mobile App
 # Prerequisites:

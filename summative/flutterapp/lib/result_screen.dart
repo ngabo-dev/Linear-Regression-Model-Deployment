@@ -13,7 +13,7 @@ class ResultScreen extends StatelessWidget {
           "Prediction Result",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.indigo[800],
+        backgroundColor: Color(0xFFFF7E5F),
       ),
       body: Center(
         child: Column(
@@ -41,7 +41,7 @@ class ResultScreen extends StatelessWidget {
               ),
               child: const Text(
                 "Go to Home",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
           ],
