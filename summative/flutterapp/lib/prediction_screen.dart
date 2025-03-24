@@ -24,7 +24,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
   final TextEditingController sleepHoursController = TextEditingController();
 
   Future<void> makePrediction() async {
-    const String url = 'http://127.0.0.1:8000/predict';
+    const String url = 'https://linear-regression-model-1-ocmt.onrender.com/predict';
 
     if (!_formKey.currentState!.validate()) {
       return;
