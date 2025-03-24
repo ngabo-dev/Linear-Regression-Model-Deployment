@@ -33,7 +33,7 @@ POST
 
 ```json
 {
-  "predicted_final_score": 87.45
+  "predicted_final_score": 51.24135224298052
 }
 ```
 
