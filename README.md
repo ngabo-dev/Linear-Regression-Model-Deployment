@@ -53,8 +53,8 @@ To interact with the API and test the predictions, visit the Swagger UI.
 
 1. Clone the Repository:
 ```bash
-git clone https://github.com/your-username/student-performance-prediction.git
-cd student-performance-prediction
+git clone https://github.com/ngabo-dev/linear_regression_model.git
+cd linear_regression_model
 ```
 
 2. Create a Virtual Environment:
@@ -82,7 +82,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 # YouTube Demo
 Here is a 2-minute demo showing how the API works and how to use it:
-[Watch the Demo](https://youtu.be/aOfQyWy3fxE)
+[Watch the Demo](https://youtu.be/scfHtIz0vD4)
 
 # How to Run the Mobile App
 # Prerequisites:
